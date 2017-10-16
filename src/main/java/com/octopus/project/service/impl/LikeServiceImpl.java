@@ -28,13 +28,13 @@ public class LikeServiceImpl implements LikeService {
 		log.info("Prepare Like Service");
 	}
 
-	// This method could potentially take sourcePlayerId (from whom a player get a like)
-	public void like(String playerId) {
+
+	public void like(String playerId, String sourcePlayerId) {
 
 		Rating rating = new Rating("like", new Date());
 
 		Player player = dao.getPlayerById(playerId);
-		Player sourcePlayer = dao.getPlayerById("1"); // placeholder
+		Player sourcePlayer = dao.getPlayerById(sourcePlayerId);
 
 		rating.setPlayer(player);
 		rating.setSourcePlayer(sourcePlayer);
