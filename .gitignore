@@ -1,2 +1,9 @@
 .gradle/
 .idea/
+.class
+*.ctxt
+*.class
+*.war
+*.ear
+!gradle-wrapper.jar
+*.jar
