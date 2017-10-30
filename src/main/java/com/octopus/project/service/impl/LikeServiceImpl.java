@@ -2,6 +2,7 @@ package com.octopus.project.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
@@ -28,10 +29,13 @@ public class LikeServiceImpl implements LikeService {
 		log.info("Prepare Like Service");
 	}
 
+	private static final String LIKE = "like";
+	private static final String DISLIKE = "dislike";
 
-	public void like(String playerId, String sourcePlayerId) {
 
-		Rating rating = new Rating("like", new Date());
+	public long like(String playerId, String sourcePlayerId) {
+
+		Rating rating = new Rating(LIKE, new Date());
 
 		Player player = dao.getPlayerById(playerId);
 		Player sourcePlayer = dao.getPlayerById(sourcePlayerId);
@@ -39,7 +43,7 @@ public class LikeServiceImpl implements LikeService {
 		rating.setPlayer(player);
 		rating.setSourcePlayer(sourcePlayer);
 
-		dao.createRating(rating);
+		return dao.createRating(rating).getRatingId();
 	}
 
 	public long getLikes(String playerId) {
@@ -50,7 +54,7 @@ public class LikeServiceImpl implements LikeService {
 	}
 
 	// This method is public for the sake of JUnit testing
-	public long countLikes(List<Rating> ratingsList) {
+	private long countLikes(List<Rating> ratingsList) {
 
 		int likeCount = 0;
 		for (Rating rating : ratingsList) {
@@ -59,6 +63,8 @@ public class LikeServiceImpl implements LikeService {
 				likeCount++;
 			}
 		}
+
+		Stream<Rating> ratingsStream = ratingsList.stream();
 		
 		return likeCount;
 	}

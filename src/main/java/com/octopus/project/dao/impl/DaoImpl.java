@@ -23,9 +23,10 @@ public class DaoImpl extends CustomHibernateDaoSupport implements Dao {
 		log.info("Prepare DAO");
 	}
 	
-	public void createPlayer(Player player) {
+	public Player createPlayer(Player player) {
 
 		getHibernateTemplate().save(player);
+		return player;
 	}
 
 	public void updatePlayer(Player player) {
@@ -43,14 +44,15 @@ public class DaoImpl extends CustomHibernateDaoSupport implements Dao {
 		return getHibernateTemplate().get(Player.class, Integer.valueOf(playerId));
 	}
 
-	public void createRating(Rating rating) {
-
+	public Rating createRating(Rating rating) {
+		//Rating ratingResult = (Rating) getHibernateTemplate().save(rating);
 		getHibernateTemplate().save(rating);
+		return rating;
 	}
 
 	public List<Rating> getRatingByPlayerId(String playerId) {
 
-		List<Rating> list = (List<Rating>) getHibernateTemplate().find("FROM Rating WHERE player_id = ?", Integer.valueOf(playerId));
+		List<Rating> list = (List<Rating>) getHibernateTemplate().find("FROM ratings WHERE player_id = ?", Integer.valueOf(playerId));
 
 		return list;
 	}

@@ -12,13 +12,13 @@ import com.octopus.project.model.Rating;
 public interface Dao {
 	
 	//Players
-	void createPlayer (Player player);
+	Player createPlayer (Player player);
 	void updatePlayer (Player player);
 	void deletePlayer (Player player);
 	Player getPlayerById(String playerId);
 	
 	//Ratings
-	void createRating (Rating rating);
+	Rating createRating (Rating rating);
 	void updateRating (Rating rating);
 	void deleteRating (Rating rating);	
 	List<Rating> getRatingByPlayerId(String playerId);
